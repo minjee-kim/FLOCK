@@ -6,7 +6,9 @@ This repository documents an experimental idea: divide a fixed computation budge
 
 ![Three-stage FLOCK architecture](figures/flock_structure.svg)
 
-<img src="figures/bird_formation.svg" width="280" alt="Birds flying in coordinated formation" />
+<p align="center">
+  <img src="figures/bird_formation.svg" width="420" alt="Birds flying in coordinated formation" />
+</p>
 
 
 
@@ -38,7 +40,9 @@ $$
 
 The low-variance eigenvectors suggest additional directions to probe; actual proposal steps are scaled, regularized, and capped. *SoftOrth* encourages rather than forces these directions. Local covariance does not identify missing modes automatically.
 
-<img src="figures/geometric_search.svg" width="320" alt="Geometric pioneer search: covariance contours and exploratory directions" />
+<p align="center">
+  <img src="figures/geometric_search.svg" width="500" alt="Geometric pioneer search: covariance contours and exploratory directions" />
+</p>
 
 **Dog Walker / repulsive search.** The exploratory walkers target an **auxiliary** repulsive joint distribution, represented schematically by
 
@@ -46,12 +50,14 @@ $$
 \widetilde{\pi}(x_1,\ldots,x_K)
 \propto
 (\prod_{k=1}^{K}\pi(x_k))
-\exp(-\sum_{i<j}\phi(d(x_i,x_j))).
+\exp\left(-\sum_{i=1}^{K-1}\sum_{j=i+1}^{K}\phi(d(x_i,x_j))\right).
 $$
 
 Here $d$ is a standardized distance and $\phi$ is a nonnegative decreasing penalty, so close walkers are discouraged. The actual penalty and transition kernels depend on the archived version. **These exploratory trajectories are not posterior samples.** Experiments compared 65% versus 90% exploration, including no-repulsion controls.
 
-<img src="figures/dog_walker.svg" width="320" alt="Dog Walker analogy: woman coordinating seven Dalmatian exploratory walkers" />
+<p align="center">
+  <img src="figures/dog_walker.svg" width="500" alt="Dog Walker analogy: woman coordinating seven Dalmatian exploratory walkers" />
+</p>
 
 
 
@@ -60,7 +66,7 @@ Here $d$ is a standardized distance and $\phi$ is a nonnegative decreasing penal
 **Global-proposal Metropolis–Hastings.** If $q$ is frozen after exploration and evaluated exactly, an independence proposal $y\sim q$ has acceptance probability
 
 $$
-\alpha(x,y)=\min(1,\frac{\pi(y)q(x)}{\pi(x)q(y)}).
+\alpha(x,y)=\min\{1,\frac{\pi(y)q(x)}{\pi(x)q(y)}\}.
 $$
 
 This is an illustrative independence-MH correction; some historical final samplers also used local moves. Correctness of the transition kernel does **not** itself establish adequate mixing.
