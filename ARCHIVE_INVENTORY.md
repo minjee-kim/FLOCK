@@ -1,6 +1,6 @@
 # Historical archive inventory
 
-An archived research package was recovered and inspected. It includes **14 original R scripts**, notes, CSV results, plots, and analytical support files. The inventory below records the exact historical filenames; it does **not** imply each file is already committed to this repository.
+An archived research package was recovered and inspected. It includes **14 original R scripts**, notes, CSV results, plots, and analytical support files. The inventory below records the exact historical filenames. **All 14 R scripts listed here are now committed under `scripts/`.** Their recovery does not imply any fresh correctness audit.
 
 ## R source files
 
@@ -21,11 +21,11 @@ An archived research package was recovered and inspected. It includes **14 origi
 
 ## Additional archived materials
 
-- Nine per-script research notes under `notes/`
+- Nine per-script research notes under [`notes/`](notes/)
 - Results provenance and original source checksums in `CODE_MANIFEST.csv`
-- Recovered experiments 2–4 tabular outputs and incomplete experiment 5 console output
+- Recovered experiments 2–4 per-run tabular outputs and the incomplete Experiment 5 console transcript under [`data/`](data/)
 - Orthogonal and Dog Walker summary tables and unverified importance-sampling pilot summary
-- Four plotted benchmark figures and two Python support scripts
+- The four original plotted PNG figures remain in the separate historical archive; the two Python support scripts are committed under [`analysis/`](analysis/)
 - `requirements.txt` and `.gitignore`
 
 The full archive is available separately as `FLOCK_GitHub_Research_Package.zip`.
