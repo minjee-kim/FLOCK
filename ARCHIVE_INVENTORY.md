@@ -30,9 +30,9 @@ An archived research package was recovered and inspected. It includes **14 origi
 
 The full archive is available separately as `FLOCK_GitHub_Research_Package.zip`.
 
-## Explicit exclusions
+## Manuscript publication status
 
-The research manuscript `main.tex` and compiled `main.pdf` are **intentionally excluded** pending the author's review. `OVERLEAF_README.md` is likewise not included here.
+The working report has since been added to GitHub under [`paper/main.tex`](paper/main.tex) and [`paper/main.pdf`](paper/main.pdf), together with [`paper/references.bib`](paper/references.bib). The historical Overleaf README and the complete original PNG figure set are **not** committed. The current LaTeX source contains figure placeholders where needed, while the archived PDF preserves the original compiled figure content.
 
 ## Caution
 
