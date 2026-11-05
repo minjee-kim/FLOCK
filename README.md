@@ -2,9 +2,7 @@
 
 **Archived exploratory research, October–November 2026. Not a validated MCMC algorithm.**
 
-This repository documents an experimental idea: divide a fixed computation budget among **scouts**, **followers**, and **pioneers**. Learn from their discoveries to construct a proposal, then perform **separately corrected posterior inference**.
-
-## Conceptual structure
+This repository documents an experimental idea: divide a fixed computation budget among **scouts**, **followers**, and **pioneers**. Learn from their discoveries to construct a proposal, then perform separately corrected posterior inference.
 
 ![Three-stage FLOCK architecture](figures/flock_structure.svg)
 
