@@ -1,0 +1,271 @@
+> if (ff_bool("FLOCK_AUTORUN",TRUE)) ff_run_experiment()
+
+FLOCK Experiment 5 | smoke | 3 replicates | B = 5000 
+Methods: FLOCK_Novelty, FLOCK_Unexplored, FLOCK_Map, FLOCK_MapMerge, AdaptiveMixtureMH, ParallelTempering, SAChES_inspired, RWMH_4chains 
+Output: [local-output-directory] 
+Budget: target calls, not iterations. Reference diagnostics are post-hoc.
+Built-in numerical self-tests passed.
+[1/3] FLOCK_Novelty ... RMSE 0.6222 | L1 0.6 | 5000/5000 calls | 0.98s sampling
+[1/3] FLOCK_Unexplored ... RMSE 0.6439 | L1 0.5 | 5000/5000 calls | 0.87s sampling
+[1/3] FLOCK_Map ... RMSE 0.5782 | L1 0.5018 | 5000/5000 calls | 0.84s sampling
+[1/3] FLOCK_MapMerge ... RMSE 0.5782 | L1 0.5018 | 5000/5000 calls | 0.85s sampling
+[1/3] AdaptiveMixtureMH ... RMSE 0.2817 | L1 0.1381 | 5000/5000 calls | 0.86s sampling
+[1/3] ParallelTempering ... RMSE 2.874 | L1 1.492 | 5000/5000 calls | 0.74s sampling
+[1/3] SAChES_inspired ... RMSE 1.982 | L1 1.099 | 5000/5000 calls | 0.81s sampling
+[1/3] RWMH_4chains ... RMSE 1.334 | L1 0.678 | 5000/5000 calls | 0.71s sampling
+[2/3] FLOCK_Unexplored ... RMSE 0.9143 | L1 0.6084 | 5000/5000 calls | 0.80s sampling
+[2/3] FLOCK_Map ... RMSE 0.9806 | L1 0.7159 | 5000/5000 calls | 0.75s sampling
+[2/3] FLOCK_MapMerge ... RMSE 0.9806 | L1 0.7159 | 5000/5000 calls | 0.82s sampling
+[2/3] AdaptiveMixtureMH ... RMSE 0.9402 | L1 0.599 | 5000/5000 calls | 0.76s sampling
+[2/3] ParallelTempering ... RMSE 0.7376 | L1 0.442 | 5000/5000 calls | 0.67s sampling
+[2/3] SAChES_inspired ... RMSE 1.408 | L1 0.8488 | 5000/5000 calls | 0.71s sampling
+[2/3] RWMH_4chains ... RMSE 0.3434 | L1 0.1404 | 5000/5000 calls | 0.66s sampling
+[2/3] FLOCK_Novelty ... RMSE 0.5766 | L1 0.5 | 5000/5000 calls | 0.74s sampling
+[3/3] FLOCK_Map ... RMSE 0.6023 | L1 0.5 | 5000/5000 calls | 0.78s sampling
+[3/3] FLOCK_MapMerge ... RMSE 0.6023 | L1 0.5 | 5000/5000 calls | 0.78s sampling
+[3/3] AdaptiveMixtureMH ... RMSE 0.9356 | L1 0.5876 | 5000/5000 calls | 0.74s sampling
+[3/3] ParallelTempering ... RMSE 0.8161 | L1 0.4577 | 5000/5000 calls | 0.70s sampling
+[3/3] SAChES_inspired ... RMSE 1.866 | L1 0.916 | 5000/5000 calls | 0.70s sampling
+[3/3] RWMH_4chains ... RMSE 0.8528 | L1 0.6 | 5000/5000 calls | 0.68s sampling
+[3/3] FLOCK_Novelty ... RMSE 2.133 | L1 1.145 | 5000/5000 calls | 0.75s sampling
+[3/3] FLOCK_Unexplored ... RMSE 0.5776 | L1 0.5 | 5000/5000 calls | 0.77s sampling
+
+Completed. Summary (lower errors are better):
+            method n mean_mean_rmse mean_weight_l1 mean_covariance_relative_error
+ AdaptiveMixtureMH 3         0.7191         0.4416                         0.3574
+         FLOCK_Map 3         0.7204         0.5725                         0.5028
+    FLOCK_MapMerge 3         0.7204         0.5725                         0.5028
+     FLOCK_Novelty 3         1.1106         0.7484                         0.7320
+  FLOCK_Unexplored 3         0.7119         0.5361                         0.6069
+ ParallelTempering 3         1.4759         0.7972                         0.5981
+      RWMH_4chains 3         0.8435         0.4728                         0.3778
+   SAChES_inspired 3         1.7521         0.9547                         0.5412
+ rare_core_discovery_rate mean_merges mean_elapsed_seconds
+                        0           0               0.7860
+                        0           0               0.7907
+                        0           0               0.8150
+                        0           0               0.8230
+                        0           0               0.8117
+                        0           0               0.7017
+                        0           0               0.6837
+                        0           0               0.7420
+
+Outputs saved in: [local-output-directory] 
+Read INTERPRETATION.txt before interpreting rankings. No automatic winner declaration.
+> # Full comparison
+> Sys.setenv(
++     RUN_MODE = "full",
++     REPS = "100",
++     BUDGET = "100000"
++ )
+> source("flock_experiment_5.R")
+
+FLOCK Experiment 5 | full | 100 replicates | B = 100000 
+Methods: FLOCK_Novelty, FLOCK_Unexplored, FLOCK_Map, FLOCK_MapMerge, AdaptiveMixtureMH, ParallelTempering, SAChES_inspired, RWMH_4chains 
+Output: [local-output-directory] 
+Budget: target calls, not iterations. Reference diagnostics are post-hoc.
+NOTE: environment REPS/BUDGET overrides are active; settings above are authoritative.
+Built-in numerical self-tests passed.
+[1/100] FLOCK_Novelty ... RMSE 0.07886 | L1 0.04315 | 100000/100000 calls | 4979.73s sampling
+[1/100] FLOCK_Unexplored ... RMSE 0.09896 | L1 0.06051 | 100000/100000 calls | 207.44s sampling
+[1/100] FLOCK_Map ... RMSE 0.1804 | L1 0.09295 | 100000/100000 calls | 178.45s sampling
+[1/100] FLOCK_MapMerge ... RMSE 0.1804 | L1 0.09295 | 100000/100000 calls | 1170.06s sampling
+[1/100] AdaptiveMixtureMH ... RMSE 0.09204 | L1 0.04142 | 100000/100000 calls | 1880.51s sampling
+[1/100] ParallelTempering ... RMSE 0.4206 | L1 0.2543 | 100000/100000 calls | 178.17s sampling
+[1/100] SAChES_inspired ... RMSE 2.426 | L1 1.35 | 100000/100000 calls | 189.38s sampling
+[1/100] RWMH_4chains ... RMSE 1.065 | L1 0.64 | 100000/100000 calls | 198.99s sampling
+[2/100] FLOCK_Unexplored ... RMSE 0.2776 | L1 0.1625 | 100000/100000 calls | 170.21s sampling
+[2/100] FLOCK_Map ... RMSE 0.08749 | L1 0.04917 | 100000/100000 calls | 170.51s sampling
+[2/100] FLOCK_MapMerge ... RMSE 0.08749 | L1 0.04917 | 100000/100000 calls | 166.55s sampling
+[2/100] AdaptiveMixtureMH ... RMSE 0.5648 | L1 0.5 | 100000/100000 calls | 163.95s sampling
+[2/100] ParallelTempering ... RMSE 0.5823 | L1 0.3338 | 100000/100000 calls | 163.76s sampling
+[2/100] SAChES_inspired ... RMSE 1.376 | L1 0.85 | 100000/100000 calls | 158.85s sampling
+[2/100] RWMH_4chains ... RMSE 0.4463 | L1 0.3068 | 100000/100000 calls | 165.13s sampling
+[2/100] FLOCK_Novelty ... RMSE 0.2237 | L1 0.116 | 100000/100000 calls | 172.75s sampling
+[3/100] FLOCK_Map ... RMSE 0.109 | L1 0.06752 | 100000/100000 calls | 168.81s sampling
+[3/100] FLOCK_MapMerge ... RMSE 0.109 | L1 0.06752 | 100000/100000 calls | 169.56s sampling
+[3/100] AdaptiveMixtureMH ... RMSE 1.724 | L1 1.286 | 100000/100000 calls | 167.30s sampling
+[3/100] ParallelTempering ... RMSE 0.7689 | L1 0.4769 | 100000/100000 calls | 164.13s sampling
+[3/100] SAChES_inspired ... RMSE 1.318 | L1 0.64 | 100000/100000 calls | 177.26s sampling
+[3/100] RWMH_4chains ... RMSE 0.8898 | L1 0.6 | 100000/100000 calls | 181.43s sampling
+[3/100] FLOCK_Novelty ... RMSE 0.09946 | L1 0.05664 | 100000/100000 calls | 185.84s sampling
+[3/100] FLOCK_Unexplored ... RMSE 0.03568 | L1 0.08241 | 100000/100000 calls | 183.00s sampling
+[4/100] FLOCK_MapMerge ... RMSE 0.2138 | L1 0.1344 | 100000/100000 calls | 184.04s sampling
+[4/100] AdaptiveMixtureMH ... RMSE 0.06216 | L1 0.04984 | 100000/100000 calls | 182.32s sampling
+[4/100] ParallelTempering ... RMSE 0.8784 | L1 0.5423 | 100000/100000 calls | 187.90s sampling
+[4/100] SAChES_inspired ... RMSE 1.314 | L1 0.64 | 100000/100000 calls | 183.35s sampling
+[4/100] RWMH_4chains ... RMSE 1.864 | L1 1.14 | 100000/100000 calls | 163.25s sampling
+[4/100] FLOCK_Novelty ... RMSE 0.1141 | L1 0.06301 | 100000/100000 calls | 3061.10s sampling
+[4/100] FLOCK_Unexplored ... RMSE 0.08977 | L1 0.06081 | 100000/100000 calls | 1098.72s sampling
+[4/100] FLOCK_Map ... RMSE 0.2138 | L1 0.1344 | 100000/100000 calls | 169.67s sampling
+[5/100] AdaptiveMixtureMH ... RMSE 0.09484 | L1 0.04339 | 100000/100000 calls | 167.88s sampling
+[5/100] ParallelTempering ... RMSE 0.07966 | L1 0.08233 | 100000/100000 calls | 162.62s sampling
+[5/100] SAChES_inspired ... RMSE 1.902 | L1 1.1 | 100000/100000 calls | 166.73s sampling
+[5/100] RWMH_4chains ... RMSE 0.2494 | L1 0.14 | 100000/100000 calls | 164.33s sampling
+[5/100] FLOCK_Novelty ... RMSE 0.6595 | L1 0.46 | 100000/100000 calls | 173.39s sampling
+[5/100] FLOCK_Unexplored ... RMSE 0.6439 | L1 0.46 | 100000/100000 calls | 166.65s sampling
+[5/100] FLOCK_Map ... RMSE 0.05126 | L1 0.03854 | 100000/100000 calls | 168.59s sampling
+[5/100] FLOCK_MapMerge ... RMSE 0.05126 | L1 0.03854 | 100000/100000 calls | 169.27s sampling
+[6/100] ParallelTempering ... RMSE 0.1108 | L1 0.07612 | 100000/100000 calls | 170.94s sampling
+[6/100] SAChES_inspired ... RMSE 1.871 | L1 1.089 | 100000/100000 calls | 170.76s sampling
+[6/100] RWMH_4chains ... RMSE 0.7805 | L1 0.5197 | 100000/100000 calls | 166.04s sampling
+[6/100] FLOCK_Novelty ... RMSE 0.1132 | L1 0.04252 | 100000/100000 calls | 169.03s sampling
+[6/100] FLOCK_Unexplored ... RMSE 0.1304 | L1 0.06501 | 100000/100000 calls | 173.31s sampling
+[6/100] FLOCK_Map ... RMSE 0.0837 | L1 0.04086 | 100000/100000 calls | 170.80s sampling
+[6/100] FLOCK_MapMerge ... RMSE 0.0837 | L1 0.04086 | 100000/100000 calls | 179.11s sampling
+[6/100] AdaptiveMixtureMH ... RMSE 0.0364 | L1 0.08902 | 100000/100000 calls | 180.13s sampling
+[7/100] SAChES_inspired ... RMSE 1.905 | L1 1.1 | 100000/100000 calls | 179.95s sampling
+[7/100] RWMH_4chains ... RMSE 1.181 | L1 0.64 | 100000/100000 calls | 177.27s sampling
+[7/100] FLOCK_Novelty ... RMSE 0.1067 | L1 0.06159 | 100000/100000 calls | 185.09s sampling
+[7/100] FLOCK_Unexplored ... RMSE 0.09769 | L1 0.04153 | 100000/100000 calls | 1992.96s sampling
+[7/100] FLOCK_Map ... RMSE 0.1313 | L1 0.06305 | 100000/100000 calls | 1696.32s sampling
+[7/100] FLOCK_MapMerge ... RMSE 0.1313 | L1 0.06305 | 100000/100000 calls | 2148.16s sampling
+[7/100] AdaptiveMixtureMH ... RMSE 0.08071 | L1 0.04 | 100000/100000 calls | 165.48s sampling
+[7/100] ParallelTempering ... RMSE 0.3274 | L1 0.2836 | 100000/100000 calls | 162.51s sampling
+[8/100] RWMH_4chains ... RMSE 2.959 | L1 1.6 | 100000/100000 calls | 163.09s sampling
+[8/100] FLOCK_Novelty ... RMSE 0.09058 | L1 0.0466 | 100000/100000 calls | 171.39s sampling
+[8/100] FLOCK_Unexplored ... RMSE 0.1202 | L1 0.06521 | 100000/100000 calls | 169.08s sampling
+[8/100] FLOCK_Map ... RMSE 0.1114 | L1 0.05017 | 100000/100000 calls | 171.07s sampling
+[8/100] FLOCK_MapMerge ... RMSE 0.1114 | L1 0.05017 | 100000/100000 calls | 168.09s sampling
+[8/100] AdaptiveMixtureMH ... RMSE 0.06991 | L1 0.05032 | 100000/100000 calls | 165.02s sampling
+[8/100] ParallelTempering ... RMSE 0.5344 | L1 0.2935 | 100000/100000 calls | 169.39s sampling
+[8/100] SAChES_inspired ... RMSE 2.428 | L1 1.35 | 100000/100000 calls | 167.87s sampling
+[9/100] FLOCK_Novelty ... RMSE 0.1226 | L1 0.06367 | 100000/100000 calls | 172.34s sampling
+[9/100] FLOCK_Unexplored ... RMSE 1.973 | L1 1.14 | 100000/100000 calls | 170.04s sampling
+[9/100] FLOCK_Map ... RMSE 1.995 | L1 1.14 | 100000/100000 calls | 170.57s sampling
+[9/100] FLOCK_MapMerge ... RMSE 1.995 | L1 1.14 | 100000/100000 calls | 169.56s sampling
+[9/100] AdaptiveMixtureMH ... RMSE 0.1242 | L1 0.05593 | 100000/100000 calls | 165.70s sampling
+[9/100] ParallelTempering ... RMSE 0.796 | L1 0.4887 | 100000/100000 calls | 170.33s sampling
+[9/100] SAChES_inspired ... RMSE 2.031 | L1 0.984 | 100000/100000 calls | 189.95s sampling
+[9/100] RWMH_4chains ... RMSE 0.2283 | L1 0.14 | 100000/100000 calls | 181.08s sampling
+[10/100] FLOCK_Unexplored ... RMSE 0.7753 | L1 0.5237 | 100000/100000 calls | 182.06s sampling
+[10/100] FLOCK_Map ... RMSE 1.871 | L1 1.133 | 100000/100000 calls | 178.89s sampling
+[10/100] FLOCK_MapMerge ... RMSE 1.871 | L1 1.133 | 100000/100000 calls | 1753.28s sampling
+[10/100] AdaptiveMixtureMH ... RMSE 0.5566 | L1 0.5 | 100000/100000 calls | 2055.81s sampling
+[10/100] ParallelTempering ... RMSE 0.1737 | L1 0.08843 | 100000/100000 calls | 2568.61s sampling
+[10/100] SAChES_inspired ... RMSE 1.45 | L1 0.7467 | 100000/100000 calls | 166.37s sampling
+[10/100] RWMH_4chains ... RMSE 0.9041 | L1 0.6 | 100000/100000 calls | 165.52s sampling
+[10/100] FLOCK_Novelty ... RMSE 0.1266 | L1 0.1256 | 100000/100000 calls | 168.66s sampling
+[11/100] FLOCK_Map ... RMSE 0.3502 | L1 0.2295 | 100000/100000 calls | 171.70s sampling
+[11/100] FLOCK_MapMerge ... RMSE 0.3502 | L1 0.2295 | 100000/100000 calls | 168.33s sampling
+[11/100] AdaptiveMixtureMH ... RMSE 0.06182 | L1 0.041 | 100000/100000 calls | 166.44s sampling
+[11/100] ParallelTempering ... RMSE 0.1982 | L1 0.113 | 100000/100000 calls | 165.62s sampling
+[11/100] SAChES_inspired ... RMSE 1.897 | L1 1.1 | 100000/100000 calls | 165.54s sampling
+[11/100] RWMH_4chains ... RMSE 1.899 | L1 1.1 | 100000/100000 calls | 166.56s sampling
+[11/100] FLOCK_Novelty ... RMSE 0.06279 | L1 0.05774 | 100000/100000 calls | 175.35s sampling
+[11/100] FLOCK_Unexplored ... RMSE 0.1329 | L1 0.05661 | 100000/100000 calls | 167.66s sampling
+[12/100] FLOCK_MapMerge ... RMSE 0.0829 | L1 0.07482 | 100000/100000 calls | 171.41s sampling
+[12/100] AdaptiveMixtureMH ... RMSE 2.945 | L1 1.6 | 100000/100000 calls | 165.38s sampling
+[12/100] ParallelTempering ... RMSE 0.5918 | L1 0.3727 | 100000/100000 calls | 164.89s sampling
+[12/100] SAChES_inspired ... RMSE 2.416 | L1 1.332 | 100000/100000 calls | 166.53s sampling
+[12/100] RWMH_4chains ... RMSE 1.898 | L1 1.1 | 100000/100000 calls | 166.97s sampling
+[12/100] FLOCK_Novelty ... RMSE 0.07045 | L1 0.04755 | 100000/100000 calls | 170.54s sampling
+[12/100] FLOCK_Unexplored ... RMSE 0.1521 | L1 0.07073 | 100000/100000 calls | 180.58s sampling
+[12/100] FLOCK_Map ... RMSE 0.0829 | L1 0.07482 | 100000/100000 calls | 179.48s sampling
+[13/100] AdaptiveMixtureMH ... RMSE 1.97 | L1 1.14 | 100000/100000 calls | 172.93s sampling
+[13/100] ParallelTempering ... RMSE 0.06713 | L1 0.1229 | 100000/100000 calls | 175.51s sampling
+[13/100] SAChES_inspired ... RMSE 2.443 | L1 1.35 | 100000/100000 calls | 1462.75s sampling
+[13/100] RWMH_4chains ... RMSE 1.263 | L1 0.64 | 100000/100000 calls | 235.82s sampling
+[13/100] FLOCK_Novelty ... RMSE 0.1037 | L1 0.05624 | 100000/100000 calls | 1077.87s sampling
+[13/100] FLOCK_Unexplored ... RMSE 1.757 | L1 1.002 | 100000/100000 calls | 162.71s sampling
+[13/100] FLOCK_Map ... RMSE 0.8207 | L1 0.4735 | 100000/100000 calls | 171.77s sampling
+[13/100] FLOCK_MapMerge ... RMSE 0.8207 | L1 0.4735 | 100000/100000 calls | 179.95s sampling
+[14/100] ParallelTempering ... RMSE 0.318 | L1 0.1732 | 100000/100000 calls | 163.77s sampling
+[14/100] SAChES_inspired ... RMSE 2.433 | L1 1.35 | 100000/100000 calls | 158.71s sampling
+[14/100] RWMH_4chains ... RMSE 0.5961 | L1 0.5 | 100000/100000 calls | 168.34s sampling
+[14/100] FLOCK_Novelty ... RMSE 0.4926 | L1 0.3249 | 100000/100000 calls | 171.68s sampling
+[14/100] FLOCK_Unexplored ... RMSE 0.5494 | L1 0.4976 | 100000/100000 calls | 169.66s sampling
+[14/100] FLOCK_Map ... RMSE 0.09255 | L1 0.04 | 100000/100000 calls | 165.41s sampling
+[14/100] FLOCK_MapMerge ... RMSE 0.09255 | L1 0.04 | 100000/100000 calls | 169.53s sampling
+[14/100] AdaptiveMixtureMH ... RMSE 0.115 | L1 0.06346 | 100000/100000 calls | 168.03s sampling
+[15/100] SAChES_inspired ... RMSE 1.627 | L1 0.8694 | 100000/100000 calls | 170.93s sampling
+[15/100] RWMH_4chains ... RMSE 1.909 | L1 1.1 | 100000/100000 calls | 165.31s sampling
+[15/100] FLOCK_Novelty ... RMSE 1.963 | L1 1.14 | 100000/100000 calls | 171.83s sampling
+[15/100] FLOCK_Unexplored ... RMSE 1.955 | L1 1.14 | 100000/100000 calls | 163.71s sampling
+[15/100] FLOCK_Map ... RMSE 1.958 | L1 1.14 | 100000/100000 calls | 158.72s sampling
+[15/100] FLOCK_MapMerge ... RMSE 1.958 | L1 1.14 | 100000/100000 calls | 172.48s sampling
+[15/100] AdaptiveMixtureMH ... RMSE 0.05679 | L1 0.04324 | 100000/100000 calls | 161.64s sampling
+[15/100] ParallelTempering ... RMSE 0.1566 | L1 0.09932 | 100000/100000 calls | 162.74s sampling
+[16/100] RWMH_4chains ... RMSE 1.93 | L1 1.14 | 100000/100000 calls | 161.31s sampling
+[16/100] FLOCK_Novelty ... RMSE 0.05967 | L1 0.06498 | 100000/100000 calls | 179.58s sampling
+[16/100] FLOCK_Unexplored ... RMSE 0.1074 | L1 0.04757 | 100000/100000 calls | 173.12s sampling
+[16/100] FLOCK_Map ... RMSE 0.08484 | L1 0.06851 | 100000/100000 calls | 176.42s sampling
+[16/100] FLOCK_MapMerge ... RMSE 0.08484 | L1 0.06851 | 100000/100000 calls | 172.01s sampling
+[16/100] AdaptiveMixtureMH ... RMSE 1.979 | L1 1.14 | 100000/100000 calls | 160.79s sampling
+[16/100] ParallelTempering ... RMSE 0.2778 | L1 0.1699 | 100000/100000 calls | 169.05s sampling
+[16/100] SAChES_inspired ... RMSE 2.412 | L1 1.14 | 100000/100000 calls | 161.58s sampling
+[17/100] FLOCK_Novelty ... RMSE 0.5562 | L1 0.5 | 100000/100000 calls | 172.29s sampling
+[17/100] FLOCK_Unexplored ... RMSE 0.08261 | L1 0.1512 | 100000/100000 calls | 163.52s sampling
+[17/100] FLOCK_Map ... RMSE 0.06492 | L1 0.0764 | 100000/100000 calls | 165.10s sampling
+[17/100] FLOCK_MapMerge ... RMSE 0.06492 | L1 0.0764 | 100000/100000 calls | 170.90s sampling
+[17/100] AdaptiveMixtureMH ... RMSE 0.06553 | L1 0.05582 | 100000/100000 calls | 165.16s sampling
+[17/100] ParallelTempering ... RMSE 0.3786 | L1 0.2133 | 100000/100000 calls | 167.69s sampling
+[17/100] SAChES_inspired ... RMSE 1.906 | L1 1.1 | 100000/100000 calls | 165.86s sampling
+[17/100] RWMH_4chains ... RMSE 1.492 | L1 0.7738 | 100000/100000 calls | 166.76s sampling
+[18/100] FLOCK_Unexplored ... RMSE 0.07377 | L1 0.05169 | 100000/100000 calls | 177.13s sampling
+[18/100] FLOCK_Map ... RMSE 0.09591 | L1 0.05994 | 100000/100000 calls | 175.22s sampling
+[18/100] FLOCK_MapMerge ... RMSE 0.09591 | L1 0.05994 | 100000/100000 calls | 362.59s sampling
+[18/100] AdaptiveMixtureMH ... RMSE 0.5803 | L1 0.5 | 100000/100000 calls | 165.41s sampling
+[18/100] ParallelTempering ... RMSE 0.2401 | L1 0.212 | 100000/100000 calls | 168.08s sampling
+[18/100] SAChES_inspired ... RMSE 0.9541 | L1 0.5047 | 100000/100000 calls | 165.90s sampling
+[18/100] RWMH_4chains ... RMSE 1.188 | L1 0.64 | 100000/100000 calls | 159.43s sampling
+[18/100] FLOCK_Novelty ... RMSE 0.1409 | L1 0.07714 | 100000/100000 calls | 252.88s sampling
+[19/100] FLOCK_Map ... RMSE 0.1206 | L1 0.09404 | 100000/100000 calls | 158.85s sampling
+[19/100] FLOCK_MapMerge ... RMSE 0.1206 | L1 0.09404 | 100000/100000 calls | 155.35s sampling
+[19/100] AdaptiveMixtureMH ... RMSE 0.09528 | L1 0.05651 | 100000/100000 calls | 153.14s sampling
+[19/100] ParallelTempering ... RMSE 1.343 | L1 0.7398 | 100000/100000 calls | 158.12s sampling
+[19/100] SAChES_inspired ... RMSE 2.34 | L1 1.283 | 100000/100000 calls | 161.13s sampling
+[19/100] RWMH_4chains ... RMSE 2.944 | L1 1.6 | 100000/100000 calls | 180.12s sampling
+[19/100] FLOCK_Novelty ... RMSE 0.1533 | L1 0.1194 | 100000/100000 calls | 175.26s sampling
+[19/100] FLOCK_Unexplored ... RMSE 0.06241 | L1 0.05614 | 100000/100000 calls | 179.99s sampling
+[20/100] FLOCK_MapMerge ... RMSE 1.96 | L1 1.139 | 100000/100000 calls | 170.22s sampling
+[20/100] AdaptiveMixtureMH ... RMSE 0.5634 | L1 0.4996 | 100000/100000 calls | 171.32s sampling
+[20/100] ParallelTempering ... RMSE 0.2667 | L1 0.1559 | 100000/100000 calls | 169.87s sampling
+[20/100] SAChES_inspired ... RMSE 1.394 | L1 0.6666 | 100000/100000 calls | 171.98s sampling
+[20/100] RWMH_4chains ... RMSE 0.9037 | L1 0.6 | 100000/100000 calls | 179.50s sampling
+[20/100] FLOCK_Novelty ... RMSE 1.923 | L1 1.14 | 100000/100000 calls | 177.77s sampling
+[20/100] FLOCK_Unexplored ... RMSE 1.966 | L1 1.14 | 100000/100000 calls | 178.97s sampling
+[20/100] FLOCK_Map ... RMSE 1.96 | L1 1.139 | 100000/100000 calls | 170.61s sampling
+[21/100] AdaptiveMixtureMH ... RMSE 0.1036 | L1 0.06291 | 100000/100000 calls | 160.60s sampling
+[21/100] ParallelTempering ... RMSE 0.3133 | L1 0.1942 | 100000/100000 calls | 163.00s sampling
+[21/100] SAChES_inspired ... RMSE 1.842 | L1 0.89 | 100000/100000 calls | 171.13s sampling
+[21/100] RWMH_4chains ... RMSE 1.78 | L1 1.012 | 100000/100000 calls | 172.92s sampling
+[21/100] FLOCK_Novelty ... RMSE 2.107 | L1 1.14 | 100000/100000 calls | 170.75s sampling
+[21/100] FLOCK_Unexplored ... RMSE 1.85 | L1 1.074 | 100000/100000 calls | 179.89s sampling
+[21/100] FLOCK_Map ... RMSE 2.274 | L1 1.139 | 100000/100000 calls | 180.42s sampling
+[21/100] FLOCK_MapMerge ... RMSE 2.274 | L1 1.139 | 100000/100000 calls | 185.99s sampling
+[22/100] ParallelTempering ... RMSE 0.06439 | L1 0.1135 | 100000/100000 calls | 170.21s sampling
+[22/100] SAChES_inspired ... RMSE 1.879 | L1 1.1 | 100000/100000 calls | 170.32s sampling
+[22/100] RWMH_4chains ... RMSE 2.961 | L1 1.6 | 100000/100000 calls | 172.28s sampling
+[22/100] FLOCK_Novelty ... RMSE 0.1178 | L1 0.05854 | 100000/100000 calls | 181.42s sampling
+[22/100] FLOCK_Unexplored ... RMSE 0.1072 | L1 0.07016 | 100000/100000 calls | 191.16s sampling
+[22/100] FLOCK_Map ... RMSE 0.1234 | L1 0.06984 | 100000/100000 calls | 190.17s sampling
+[22/100] FLOCK_MapMerge ... RMSE 0.1234 | L1 0.06984 | 100000/100000 calls | 183.48s sampling
+[22/100] AdaptiveMixtureMH ... RMSE 0.07749 | L1 0.04671 | 100000/100000 calls | 182.96s sampling
+[23/100] SAChES_inspired ... RMSE 1.396 | L1 0.85 | 100000/100000 calls | 182.90s sampling
+[23/100] RWMH_4chains ... RMSE 0.6551 | L1 0.4464 | 100000/100000 calls | 181.11s sampling
+[23/100] FLOCK_Novelty ... RMSE 0.05501 | L1 0.04189 | 100000/100000 calls | 185.24s sampling
+[23/100] FLOCK_Unexplored ... RMSE 0.4059 | L1 0.2658 | 100000/100000 calls | 173.45s sampling
+[23/100] FLOCK_Map ... RMSE 0.5722 | L1 0.5 | 100000/100000 calls | 175.87s sampling
+[23/100] FLOCK_MapMerge ... RMSE 0.5722 | L1 0.5 | 100000/100000 calls | 176.00s sampling
+[23/100] AdaptiveMixtureMH ... RMSE 0.1033 | L1 0.05981 | 100000/100000 calls | 171.72s sampling
+[23/100] ParallelTempering ... RMSE 0.2819 | L1 0.1985 | 100000/100000 calls | 169.88s sampling
+[24/100] RWMH_4chains ... RMSE 2.401 | L1 1.14 | 100000/100000 calls | 172.00s sampling
+[24/100] FLOCK_Novelty ... RMSE 0.1558 | L1 0.08832 | 100000/100000 calls | 176.80s sampling
+[24/100] FLOCK_Unexplored ... RMSE 0.06967 | L1 0.0413 | 100000/100000 calls | 174.92s sampling
+[24/100] FLOCK_Map ... RMSE 0.102 | L1 0.0493 | 100000/100000 calls | 174.01s sampling
+[24/100] FLOCK_MapMerge ... RMSE 0.102 | L1 0.0493 | 100000/100000 calls | 171.85s sampling
+[24/100] AdaptiveMixtureMH ... RMSE 0.07886 | L1 0.04258 | 100000/100000 calls | 164.49s sampling
+[24/100] ParallelTempering ... RMSE 1.043 | L1 0.5743 | 100000/100000 calls | 171.86s sampling
+[24/100] SAChES_inspired ... RMSE 2.427 | L1 1.35 | 100000/100000 calls | 168.10s sampling
+[25/100] FLOCK_Novelty ... RMSE 0.07468 | L1 0.04783 | 100000/100000 calls | 168.98s sampling
+[25/100] FLOCK_Unexplored ... RMSE 0.1377 | L1 0.08981 | 100000/100000 calls | 173.09s sampling
+[25/100] FLOCK_Map ... RMSE 0.2118 | L1 0.1032 | 100000/100000 calls | 176.04s sampling
+[25/100] FLOCK_MapMerge ... RMSE 0.2118 | L1 0.1032 | 100000/100000 calls | 177.06s sampling
+[25/100] AdaptiveMixtureMH ... RMSE 0.08263 | L1 0.04133 | 100000/100000 calls | 170.28s sampling
+[25/100] ParallelTempering ... RMSE 0.2751 | L1 0.1682 | 100000/100000 calls | 172.01s sampling
+[25/100] SAChES_inspired ... RMSE 1.881 | L1 1.098 | 100000/100000 calls | 177.17s sampling
+[25/100] RWMH_4chains ... RMSE 0.581 | L1 0.3881 | 100000/100000 calls | 193.85s sampling
+[26/100] FLOCK_Unexplored ... RMSE 0.09728 | L1 0.07651 | 100000/100000 calls | 192.41s sampling
+[26/100] FLOCK_Map ... RMSE 0.138 | L1 0.08534 | 100000/100000 calls | 184.77s sampling
+[26/100] FLOCK_MapMerge ...
