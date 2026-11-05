@@ -8,6 +8,49 @@ This repository documents an experimental idea: divide a fixed computation budge
 
 
 
+## Algorithm structures explored
+
+The following are **algorithmic variants**, not different statistical likelihood models. Each branch experiments with how the available target-density evaluation budget should be divided between discovering regions and collecting valid posterior samples.
+
+| Variant | Scout and middle-stage strategy | Final inference |
+|---|---|---|
+| **Original FLOCK** | Scouts locate plausible basins; followers refine discovered regions; pioneers search neglected regions. Information may be shared between rounds. | Frozen global mixture-proposal MH |
+| **FLOCK-Random / Followers** | Ablations replacing directed pioneer starts with random locations, or concentrating exploration on followers. | Corrected final MH |
+| **FLOCK-Novelty / Unexplored / Density / Diversity** | Select pioneer locations according to geometric novelty, estimated unexplored coverage, density plausibility, or diversity. | Corrected final MH |
+| **FLOCK-Orthogonal** | Estimate a scout covariance matrix, decompose it into eigenvectors, and send pioneers along low-variance directions with regularization and distance caps. | Frozen mixture-proposal MH |
+| **FLOCK-OrthogonalSoft** | Encourage, rather than compel, movement in underexplored eigendirections. | Corrected final MH |
+| **FLOCK-Map / MapMerge** | Summarize candidate regions and propose mergers based on geometric proximity and local approximation. | Corrected final MH |
+| **FLOCK-AM / staged AM** | Compare directed role-specific starts with matched undirected middle chains using similar adaptive Metropolis kernels. | Local/global MH after exploration |
+| **Dog Walker (65% / 90%)** | Seven simultaneously interacting walkers explore under a *repulsive joint exploration target*. Matched no-repulsion controls separate the repulsion effect from the exploration-budget effect. | Separate final MH targeting the **original** posterior |
+| **FLOCK with importance consolidation** | Scouts, followers, and pioneers build a frozen mixture proposal with a defensive broad component. | **Fresh importance draws and normalized weights**, not an MH chain |
+
+### Geometric search: pioneers along covariance directions
+
+A scout estimates a local covariance matrix $\widehat\Sigma=V\Lambda V^\top$. Each eigenvector $v_j$ gives a candidate direction, while eigenvalues $\lambda_j$ measure local variation. Orthogonal pioneers favor underexplored directions, including some associated with smaller eigenvalues. The exploratory move can be written schematically as $\theta'=\theta+c_jv_j$, where the step scale $c_j$ is regularized and capped; this is **not** a literal statement of every historical proposal kernel.
+
+![Geometric search: eigenvector-guided pioneer proposals](figures/geometric_search.svg)
+
+The geometry is local and learned from exploratory history. Small-variance directions may be scientifically interesting, but the covariance of one visited basin does not guarantee another mode will be found, and exploration moves are not counted as posterior draws.
+
+### Dog Walker: repulsive coordinated exploration
+
+![Dog Walker exploration schematic](figures/dog_walker.svg)
+
+Dog Walker was motivated by a person walking multiple dogs: individual walkers are linked to a shared group, while repulsion encourages them to spread out. In the experiments, seven interacting trajectories were explored under an *auxiliary* joint target
+
+$
+\widetilde{\pi}(x_1,\\ldots,x_K)\\propto
+\left[\prod_{k=1}^K\pi(x_k)\right]
+\exp\left\\{-\sum_{i<j}\phi\bigl(d(x_i,x_j)\bigr)\right\\},
+$
+
+where $d$ is a standardized distance and $\phi$ is a nonnegative, decreasing distance penalty. This is a **conceptual** expression of the repulsion principle; exact penalties and proposal corrections differ across archived implementations. Repulsed exploration trajectories **are not draws from** $\pi$. The final posterior sampler was separately corrected and compared against identical 65%/90% exploration schedules without repulsion. See `flock_dogwalker_theta2.R` and `flock_am_dogwalker_comparison.R` in the historical archive inventory.
+
+### Inspirations
+
+The *formation* idea is about giving distinct members complementary spatial roles, rather than running many interchangeable chains. The dog-walking analogy illustrates simultaneous exploration with separation; it is not itself a statistical justification for repulsion. The anime-derived formation reference is an inspiration, **not** a reproduced algorithm.
+
+
 **The final stage was the central unresolved challenge.** Exploratory states are not automatically posterior draws. A properly constructed MH transition can correct a frozen proposal in principle, but the quality of the learned proposal and resulting estimation accuracy still have to be established. Importance-weighted consolidation was examined separately and is not equivalent to a corrected final MH chain.
 
 ## Promising results
