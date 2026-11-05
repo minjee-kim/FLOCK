@@ -6,6 +6,8 @@ This repository documents an experimental idea: divide a fixed computation budge
 
 ![Three-stage FLOCK architecture](figures/flock_structure.svg)
 
+<img src="figures/bird_formation.svg" width="280" alt="Birds flying in coordinated formation" />
+
 
 
 ## Algorithm structure and variants
@@ -36,36 +38,29 @@ $$
 
 The low-variance eigenvectors suggest additional directions to probe; actual proposal steps are scaled, regularized, and capped. *SoftOrth* encourages rather than forces these directions. Local covariance does not identify missing modes automatically.
 
+<img src="figures/geometric_search.svg" width="320" alt="Geometric pioneer search: covariance contours and exploratory directions" />
+
 **Dog Walker / repulsive search.** The exploratory walkers target an **auxiliary** repulsive joint distribution, represented schematically by
 
 $$
 \widetilde{\pi}(x_1,\ldots,x_K)
 \propto
-\bigl[\prod_{k=1}^{K}\pi(x_k)\bigr]
-\exp\bigl[-\sum_{i<j}\phi\{d(x_i,x_j)\}\bigr].
+(\prod_{k=1}^{K}\pi(x_k))
+\exp(-\sum_{i<j}\phi(d(x_i,x_j))).
 $$
 
 Here $d$ is a standardized distance and $\phi$ is a nonnegative decreasing penalty, so close walkers are discouraged. The actual penalty and transition kernels depend on the archived version. **These exploratory trajectories are not posterior samples.** Experiments compared 65% versus 90% exploration, including no-repulsion controls.
 
-<details>
-<summary><strong>Visual inspirations: Dog Walker, geometric search, and bird formation</strong></summary>
+<img src="figures/dog_walker.svg" width="320" alt="Dog Walker analogy: woman coordinating seven Dalmatian exploratory walkers" />
 
-![Dog Walker illustration](figures/dog_walker.svg)
 
-![Geometric pioneer directions](figures/geometric_search.svg)
-
-![Birds in formation](figures/bird_formation.svg)
-
-The metaphors motivate different spatial roles; they are not proofs of posterior convergence. The Dog Walker idea comes from coordinated walking of several dogs, with repulsion used to encourage spatial diversity during exploration.
-
-</details>
 
 ### Final inference: two distinct designs
 
 **Global-proposal Metropolis–Hastings.** If $q$ is frozen after exploration and evaluated exactly, an independence proposal $y\sim q$ has acceptance probability
 
 $$
-\alpha(x,y)=\min\bigl\{1,\frac{\pi(y)q(x)}{\pi(x)q(y)}\bigr\}.
+\alpha(x,y)=\min(1,\frac{\pi(y)q(x)}{\pi(x)q(y)}).
 $$
 
 This is an illustrative independence-MH correction; some historical final samplers also used local moves. Correctness of the transition kernel does **not** itself establish adequate mixing.
@@ -177,8 +172,8 @@ The experiment simulated $y_i\stackrel{\mathrm{ind}}{\sim}N(9,1)$ using R seed *
 
 $$
 p(\theta\mid y)\propto
-\exp\bigl[-\frac{12}{2}(\theta^2-\bar{y})^2\bigr]
-\exp\bigl[-\frac{(\theta-2)^2}{2\cdot3^2}\bigr].
+\exp[-\frac{12}{2}(\theta^2-\bar{y})^2]
+\exp[-\frac{(\theta-2)^2}{2\cdot3^2}].
 $$
 
 An accurate numerical reference posterior was computed by trapezoidal integration over 12,001 equally spaced grid points on $[-9,9]$. The archived comparison used eight independent final runs per method, each with a **12,000-target-evaluation budget** (96,000 across runs). The table's 0.0113 versus 0.0500 compares **mean absolute error of the estimated posterior mean** versus that reference; it is **not** the RMSE of entire posterior distributions. The corresponding mean absolute errors in $P(\theta>0\mid y)$ were **0.00188** (FLOCK-Novelty) and **0.00844** (custom AdaptiveMixtureMH). A single seeded simulated dataset and this benchmark do not establish a general win.
