@@ -1,0 +1,3 @@
+method,mean_rmse,mass_l1,covariance_error,ci_endpoint_error,rare_mass_error,is_ess,runtime_s,reps,budget,provenance
+FLOCK_Roles,0.204,0.088,0.074,0.078,0.026,237,1.06,10,12000,prior-conversation report; original ZIP uninspected
+Undirected_Matched,0.325,0.139,0.104,0.135,0.04,147,1.04,10,12000,prior-conversation report; original ZIP uninspected
