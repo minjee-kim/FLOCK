@@ -8,53 +8,114 @@ This repository documents an experimental idea: divide a fixed computation budge
 
 
 
-## Algorithm structures explored
+## Algorithm structure and variants
 
-The following are **algorithmic variants**, not different statistical likelihood models. Each branch experiments with how the available target-density evaluation budget should be divided between discovering regions and collecting valid posterior samples.
+The *three-stage architecture* stays fixed: scout → role-specialized exploration → corrected inference. The experiments vary **how the middle-stage proposal is learned** and **how the final inference stage is performed**.
 
-| Variant | Scout and middle-stage strategy | Final inference |
-|---|---|---|
-| **Original FLOCK** | Scouts locate plausible basins; followers refine discovered regions; pioneers search neglected regions. Information may be shared between rounds. | Frozen global mixture-proposal MH |
-| **FLOCK-Random / Followers** | Ablations replacing directed pioneer starts with random locations, or concentrating exploration on followers. | Corrected final MH |
-| **FLOCK-Novelty / Unexplored / Density / Diversity** | Select pioneer locations according to geometric novelty, estimated unexplored coverage, density plausibility, or diversity. | Corrected final MH |
-| **FLOCK-Orthogonal** | Estimate a scout covariance matrix, decompose it into eigenvectors, and send pioneers along low-variance directions with regularization and distance caps. | Frozen mixture-proposal MH |
-| **FLOCK-OrthogonalSoft** | Encourage, rather than compel, movement in underexplored eigendirections. | Corrected final MH |
-| **FLOCK-Map / MapMerge** | Summarize candidate regions and propose mergers based on geometric proximity and local approximation. | Corrected final MH |
-| **FLOCK-AM / staged AM** | Compare directed role-specific starts with matched undirected middle chains using similar adaptive Metropolis kernels. | Local/global MH after exploration |
-| **Dog Walker (65% / 90%)** | Seven simultaneously interacting walkers explore under a *repulsive joint exploration target*. Matched no-repulsion controls separate the repulsion effect from the exploration-budget effect. | Separate final MH targeting the **original** posterior |
-| **FLOCK with importance consolidation** | Scouts, followers, and pioneers build a frozen mixture proposal with a defensive broad component. | **Fresh importance draws and normalized weights**, not an MH chain |
+![Mathematical branches of FLOCK](figures/flock_method_branches.svg)
 
-### Geometric search: pioneers along covariance directions
+| Component | Defining idea |
+|:--|:--|
+| **Scout** | Adaptive MH estimates local structure and discovers plausible basins. |
+| **Followers** | Exploit promising regions discovered by scouts. |
+| **Pioneers** | Search for plausible regions that the existing exploratory histories may have missed. |
+| **Final inference** | Freeze a global proposal $q$ and use a valid MH correction **or** draw fresh weighted importance samples. |
 
-A scout estimates a local covariance matrix $\widehat\Sigma=V\Lambda V^\top$. Each eigenvector $v_j$ gives a candidate direction, while eigenvalues $\lambda_j$ measure local variation. Orthogonal pioneers favor underexplored directions, including some associated with smaller eigenvalues. The exploratory move can be written schematically as $\theta'=\theta+c_jv_j$, where the step scale $c_j$ is regularized and capped; this is **not** a literal statement of every historical proposal kernel.
+### Three complementary exploration mechanisms
 
-![Geometric search: eigenvector-guided pioneer proposals](figures/geometric_search.svg)
+![Novelty, orthogonal, and repulsive search schematics](figures/flock_search_mechanisms.svg)
 
-The geometry is local and learned from exploratory history. Small-variance directions may be scientifically interesting, but the covariance of one visited basin does not guarantee another mode will be found, and exploration moves are not counted as posterior draws.
+**Novelty / unexplored search.** Pioneer starting points are screened for novelty relative to exploratory history, with variants using density plausibility, coverage, or diversity. Schematically, a candidate can be selected by maximizing a score $N(x;\mathcal H)$. The particular score changed between experiments.
 
-### Dog Walker: repulsive coordinated exploration
+**Orthogonal / geometric search.** The scout supplies an estimated covariance with eigendecomposition
 
-![Dog Walker exploration schematic](figures/dog_walker.svg)
+$$
+\widehat{\Sigma}=V\Lambda V^\top,\qquad
+\theta'=\theta+c_jv_j.
+$$
 
-Dog Walker was motivated by a person walking multiple dogs: individual walkers are linked to a shared group, while repulsion encourages them to spread out. In the experiments, seven interacting trajectories were explored under an *auxiliary* joint target
+The low-variance eigenvectors suggest additional directions to probe; actual proposal steps are scaled, regularized, and capped. *SoftOrth* encourages rather than forces these directions. Local covariance does not identify missing modes automatically.
 
-$
-\widetilde{\pi}(x_1,\\ldots,x_K)\\propto
-\left[\prod_{k=1}^K\pi(x_k)\right]
-\exp\left\\{-\sum_{i<j}\phi\bigl(d(x_i,x_j)\bigr)\right\\},
-$
+**Dog Walker / repulsive search.** The exploratory walkers target an **auxiliary** repulsive joint distribution, represented schematically by
 
-where $d$ is a standardized distance and $\phi$ is a nonnegative, decreasing distance penalty. This is a **conceptual** expression of the repulsion principle; exact penalties and proposal corrections differ across archived implementations. Repulsed exploration trajectories **are not draws from** $\pi$. The final posterior sampler was separately corrected and compared against identical 65%/90% exploration schedules without repulsion. See `flock_dogwalker_theta2.R` and `flock_am_dogwalker_comparison.R` in the historical archive inventory.
+$$
+\widetilde{\pi}(x_1,\ldots,x_K)
+\propto
+\left[\prod_{k=1}^{K}\pi(x_k)\right]
+\exp\left[-\sum_{i<j}\phi\{d(x_i,x_j)\}\right].
+$$
 
-### Inspirations
+Here $d$ is a standardized distance and $\phi$ is a nonnegative decreasing penalty, so close walkers are discouraged. The actual penalty and transition kernels depend on the archived version. **These exploratory trajectories are not posterior samples.** Experiments compared 65% versus 90% exploration, including no-repulsion controls.
 
-![Birds flying in formation](figures/bird_formation.svg)
+<details>
+<summary><strong>Visual inspirations: Dog Walker, geometric search, and bird formation</strong></summary>
 
+![Dog Walker illustration](figures/dog_walker.svg)
 
-The *formation* idea is about giving distinct members complementary spatial roles, rather than running many interchangeable chains. The dog-walking analogy illustrates simultaneous exploration with separation; it is not itself a statistical justification for repulsion. The anime-derived formation reference is an inspiration, **not** a reproduced algorithm.
+![Geometric pioneer directions](figures/geometric_search.svg)
 
+![Birds in formation](figures/bird_formation.svg)
 
-**The final stage was the central unresolved challenge.** Exploratory states are not automatically posterior draws. A properly constructed MH transition can correct a frozen proposal in principle, but the quality of the learned proposal and resulting estimation accuracy still have to be established. Importance-weighted consolidation was examined separately and is not equivalent to a corrected final MH chain.
+The metaphors motivate different spatial roles; they are not proofs of posterior convergence. The Dog Walker idea comes from coordinated walking of several dogs, with repulsion used to encourage spatial diversity during exploration.
+
+</details>
+
+### Final inference: two distinct designs
+
+**Global-proposal Metropolis–Hastings.** If $q$ is frozen after exploration and evaluated exactly, an independence proposal $y\sim q$ has acceptance probability
+
+$$
+\alpha(x,y)=\min\left\{1,\frac{\pi(y)q(x)}{\pi(x)q(y)}\right\}.
+$$
+
+This is an illustrative independence-MH correction; some historical final samplers also used local moves. Correctness of the transition kernel does **not** itself establish adequate mixing.
+
+**Importance consolidation.** Alternatively, generate *fresh* $x_i\sim q$, compute weights using an unnormalized target $\pi^*$, and estimate posterior expectations:
+
+$$
+w_i=\frac{\pi^*(x_i)}{q(x_i)},\qquad
+\widehat{\mathbb E}_{\pi}[f]
+=\frac{\sum_{i=1}^{n}w_i f(x_i)}{\sum_{i=1}^{n}w_i}.
+$$
+
+This is a weighted estimator, **not** a final MCMC chain. A defensive broad proposal component helps with support but does not prevent weight degeneracy.
+
+### Conceptual pseudocode
+
+```python
+# A research sketch, not an executable implementation
+history = scout(log_posterior)
+
+followers = refine(history)
+pioneers  = explore(history, strategy="novelty | orthogonal | repulsive")
+discoveries = combine(history, followers, pioneers)
+
+q = fit_and_freeze_global_proposal(discoveries)
+
+# Choose ONE of two different inference designs:
+posterior_draws = corrected_mh(log_posterior, q)
+# OR:
+weighted_estimate = self_normalized_importance_sampling(log_posterior, q)
+```
+
+<details>
+<summary><strong>Historical implementation variants and ablations</strong></summary>
+
+- **Original FLOCK:** staged scout, followers, pioneers, and final sampling.
+- **Random / followers-only:** change where middle-stage chains start.
+- **Novelty / Unexplored / Density / Diversity:** change how potential pioneer starting locations are ranked.
+- **Orthogonal / OrthogonalSoft:** use the scout covariance eigendirections, with stronger or softer directional encouragement.
+- **Map / MapMerge:** summarize discovered regions and experiment with merging nearby local approximations.
+- **FLOCK-AM / Staged-AM / FLOCK-RWMH:** compare directed middle-stage formation to undirected baselines while varying the local proposal kernel.
+- **Dog Walker 65 / 90 / no-repulsion:** evaluate repulsion and exploration budget independently.
+- **Importance FLOCK:** replace the final MH chain with independently weighted draws from a frozen mixture proposal.
+
+These are algorithm variations; the Gaussian product, hierarchical funnel, and quadratic-sign simulations below are **target models used for testing**, not FLOCK variants.
+
+</details>
+
+**Central unresolved challenge:** more aggressive exploration can discover additional candidate regions, but it does not guarantee accurate posterior *mass allocation*. This is why the exploratory and inference stages must be distinguished.
+
 
 ## Promising results
 
