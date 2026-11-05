@@ -1,0 +1,11 @@
+<PARSED TEXT FOR SHEET: 1 / 1 TABS
+TAB NAME: experiment5_smoke_summary_from_log.csv>
+index,method,mean_rmse,mean_weight_l1,mean_covariance_relative_error,n
+0,AdaptiveMixtureMH,0.7191,0.4416,0.3574,3
+1,FLOCK_Map,0.7204,0.5725,0.5028,3
+2,FLOCK_MapMerge,0.7204,0.5725,0.5028,3
+3,FLOCK_Novelty,1.1106,0.7484,0.732,3
+4,FLOCK_Unexplored,0.7119,0.5361,0.6069,3
+5,ParallelTempering,1.4759,0.7972,0.5981,3
+6,RWMH_4chains,0.8435,0.4728,0.3778,3
+7,SAChES_inspired,1.7521,0.9547,0.5412,3
