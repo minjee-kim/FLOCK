@@ -6,6 +6,9 @@ This repository documents an experimental idea: divide a fixed computation budge
 
 ## Conceptual structure
 
+![Three-stage FLOCK architecture](figures/flock_structure.svg)
+
+
 ```mermaid
 flowchart TB
     S["Stage 1 — Scouts<br/>Aggressive exploration to identify promising and unexplored regions<br/>Scout 1 · Scout 2"]
