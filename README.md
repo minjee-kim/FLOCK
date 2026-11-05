@@ -118,6 +118,10 @@ These are algorithm variations; the Gaussian product, hierarchical funnel, and q
 **Central unresolved challenge:** more aggressive exploration can discover additional candidate regions, but it does not guarantee accurate posterior *mass allocation*. This is why the exploratory and inference stages must be distinguished.
 
 
+## Research report
+
+The October 2026 research notebook is available as [LaTeX source](paper/main.tex), with a [bibliography](paper/references.bib). It documents the experiments, ablations, numerical findings, and limitations. The three original PNG charts referenced in the source are not yet stored in this repository; the LaTeX file shows labeled placeholders until the corresponding images are added under `paper/figures/`. The complete original Overleaf package is maintained separately.
+
 ## Promising results
 
 The exploratory benchmarks identified several targets on which one FLOCK variant achieved lower estimation error than its specified comparator. The models are stated below so the simulations can be interpreted and reproduced; **these are not established general performance improvements**.
