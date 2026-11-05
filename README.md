@@ -1,5 +1,10 @@
 # FLOCK — role-specialized posterior exploration
 
+### 📄 [Read the research report (PDF)](paper/main.pdf)
+
+**[Open PDF](paper/main.pdf)** · [LaTeX source](paper/main.tex) · [Bibliography](paper/references.bib)
+
+
 **Archived exploratory research, October–November 2026. Not a validated MCMC algorithm.**
 
 This repository documents an experimental idea: divide a fixed computation budget among **scouts**, **followers**, and **pioneers**. Learn from their discoveries to construct a proposal, then perform separately corrected posterior inference.
@@ -120,7 +125,7 @@ These are algorithm variations; the Gaussian product, hierarchical funnel, and q
 
 ## Research report
 
-The October 2026 research notebook is available as [LaTeX source](paper/main.tex), with a [bibliography](paper/references.bib). It documents the experiments, ablations, numerical findings, and limitations. The three original PNG charts referenced in the source are not yet stored in this repository; the LaTeX file shows labeled placeholders until the corresponding images are added under `paper/figures/`. The complete original Overleaf package is maintained separately.
+The full [**FLOCK research notebook (PDF)**](paper/main.pdf) describes the proposed algorithm, experiments, benchmark results, negative findings, and limitations. The editable [LaTeX source](paper/main.tex) and [bibliography](paper/references.bib) are also available.
 
 ## Promising results
 
