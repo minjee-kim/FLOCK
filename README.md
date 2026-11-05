@@ -48,6 +48,9 @@ where $d$ is a standardized distance and $\phi$ is a nonnegative, decreasing dis
 
 ### Inspirations
 
+![Birds flying in formation](figures/bird_formation.svg)
+
+
 The *formation* idea is about giving distinct members complementary spatial roles, rather than running many interchangeable chains. The dog-walking analogy illustrates simultaneous exploration with separation; it is not itself a statistical justification for repulsion. The anime-derived formation reference is an inspiration, **not** a reproduced algorithm.
 
 
