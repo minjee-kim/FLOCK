@@ -34,14 +34,16 @@ See [simulation models, equations, and results](docs/experiments.md) for the exa
 | [`docs/algorithm.md`](docs/algorithm.md) | Scout/follower/pioneer designs, geometric and repulsive exploration, MH and importance consolidation |
 | [`docs/experiments.md`](docs/experiments.md) | Simulated likelihoods, priors, comparisons, and findings |
 | [`docs/reproducibility.md`](docs/reproducibility.md) | Current reproduction status, requirements, and limitations |
-| [`data/`](data/) | Recovered aggregate experiment summaries and explicitly flagged unverified pilot data |
+| [`data/`](data/) | Historical replicate tables, aggregate summaries, partial console logs, and explicitly unverified pilot data |
 | [`figures/`](figures/) | Algorithm and exploration schematics |
-| [`scripts/`](scripts/) | Currently committed R demonstration; remaining historical scripts are inventoried separately |
+| [`scripts/`](scripts/) | 14 original standalone R simulation and comparison prototypes |
+| [`analysis/`](analysis/) | Python verification and figure regeneration scripts |
+| [`notes/`](notes/) | Experiment-specific historical R run instructions |
 | [`ARCHIVE_INVENTORY.md`](ARCHIVE_INVENTORY.md) | Original experiment-script and research-archive inventory |
 
 ## Reproducibility and limitations
 
-The GitHub repository currently contains **selected numerical summaries rather than every raw run**, and **most of the 14 original R benchmark scripts have not yet been committed individually**. Thus the complete experimental record cannot yet be reproduced from a fresh clone. See the [reproducibility notes](docs/reproducibility.md) before relying on the reported figures.
+The repository now includes **all 14 archived R prototypes, experiment-specific notes, recovered replicate CSVs, and Python checking scripts**. These are historical research snapshots: they have **not been independently audited or rerun end to end**. Some raw outputs remain incomplete, including the Experiment 5 console transcript and the independently unverified importance pilot. See [reproducibility notes](docs/reproducibility.md) and [result provenance](RESULTS_PROVENANCE.md).
 
 In particular, a final corrected MH chain need not mix adequately across discovered modes; proposal discovery is not the same as estimating posterior mass. Importance-weighted consolidation may suffer from unstable weights. Custom baseline implementations should not be equated with fully tuned published algorithms.
 
