@@ -1,0 +1,21 @@
+# TeX intermediate files
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+# R checkpoints and large generated outputs
+.Rhistory
+.RData
+.Rproj.user/
+**/checkpoints/
+outputs/
+*_FINAL_posterior.csv
+*_eight_chains.csv
+# OS/editor metadata
+.DS_Store
+__pycache__/
