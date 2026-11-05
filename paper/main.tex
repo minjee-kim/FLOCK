@@ -156,7 +156,7 @@ FLOCK-Followers & 2.485 & 0.845 & 0.03\\
 \end{tabular}
 \caption{Saved \protect\path{flock_experiment_3_summary.csv} (100 replicates per method); source code \protect\path{flock_experiment_3.R}. Component diagnostic references were not used by the sampler.}
 \end{table}
-\begin{figure}[H]\centering\includegraphics[width=0.92\linewidth]{figures/exp3_rmse.png}\caption{Replotted saved mean RMSE values for Experiment 3. Error bars are intentionally omitted; assess the paired uncertainty in text and in the CSV.}\end{figure}
+\begin{figure}[H]\centering\IfFileExists{figures/exp3_rmse.png}{\includegraphics[width=0.92\linewidth]{figures/exp3_rmse.png}}{\fbox{\parbox{0.85\linewidth}{\centering Figure file missing: \texttt{exp3\_rmse.png}.\\ Add the original PNG from the Overleaf project to restore this plot.}}}\caption{Replotted saved mean RMSE values for Experiment 3. Error bars are intentionally omitted; assess the paired uncertainty in text and in the CSV.}\end{figure}
 The paired mean difference \(\mathrm{RMSE}_{\mathrm{Unexplored}}-\mathrm{RMSE}_{\mathrm{AdaptiveMixtureMH}}=-0.157\) had reported bootstrap interval \([-0.500,0.207]\) and a 57\% fraction of replicate wins. It is therefore \textbf{not convincing evidence of consistent superiority}. Rare mode detection improved from 1\% to 4\%, but both rates were poor, with estimated rare mass far below the true 5\% mass.
 
 \subsection{Experiment 4: functional performance, 100 replicates}
@@ -175,7 +175,7 @@ RWMH (four chains) & 0.07112 & 0.16750\\
 \end{tabular}
 \caption{Saved \protect\path{flock_experiment_4_summary.csv}, each with 100 replications. The metric definitions here differ from the five-dimensional RMSE in Experiment 3.}
 \end{table}
-\begin{figure}[H]\centering\includegraphics[width=0.92\linewidth]{figures/exp4_rmse.png}\caption{Observed average functional errors for Experiment 4. Do not infer a significant difference from bar length alone.}\end{figure}
+\begin{figure}[H]\centering\IfFileExists{figures/exp4_rmse.png}{\includegraphics[width=0.92\linewidth]{figures/exp4_rmse.png}}{\fbox{\parbox{0.85\linewidth}{\centering Figure file missing: \texttt{exp4\_rmse.png}.\\ Add the original PNG from the Overleaf project to restore this plot.}}}\caption{Observed average functional errors for Experiment 4. Do not infer a significant difference from bar length alone.}\end{figure}
 FLOCK-Novelty was close to AdaptiveMixtureMH in mean functional RMSE (approximately 0.0148 vs 0.0152). The saved paired table uses FLOCK-Unexplored as one reference method; it also demonstrates that method rankings vary by metric. Neither the strong loss for follower-only exploration nor the close two-method comparison supports a universal role advantage.
 
 \subsection{Orthogonal exploration: preliminary scenario comparisons}
@@ -205,7 +205,7 @@ SAChES-inspired & 1.891 & 1.897 & 1.033\\
 \end{tabular}
 \caption{Recalculated from the first 25 complete visible replicates in \protect\path{experiment5_console_log_excerpt.txt}; not the complete advertised 100-replicate result.}
 \end{table}
-\begin{figure}[H]\centering\includegraphics[width=0.92\linewidth]{figures/exp5_partial_rmse.png}\caption{The 10D benchmark from the visible log subset. The Novelty--AdaptiveMixture mean difference of \(-0.100\) coexists with a Novelty win rate of only 11/25; heavy tails matter.}\end{figure}
+\begin{figure}[H]\centering\IfFileExists{figures/exp5_partial_rmse.png}{\includegraphics[width=0.92\linewidth]{figures/exp5_partial_rmse.png}}{\fbox{\parbox{0.85\linewidth}{\centering Figure file missing: \texttt{exp5\_partial\_rmse.png}.\\ Add the original PNG from the Overleaf project to restore this plot.}}}\caption{The 10D benchmark from the visible log subset. The Novelty--AdaptiveMixture mean difference of \(-0.100\) coexists with a Novelty win rate of only 11/25; heavy tails matter.}\end{figure}
 Across these 25 paired replicates, FLOCK-Novelty had a lower RMSE than AdaptiveMixtureMH in only 11 runs (44\%), despite its lower mean error. Map and MapMerge yielded identical mean errors throughout the visible completed subset; this alone does not demonstrate that their internal maps or merging logic were identical. Complete archive audits and more replicates are needed.
 
 \subsection{Importance-weighted consolidation: reported 5D pilot}
