@@ -9,27 +9,6 @@ This repository documents an experimental idea: divide a fixed computation budge
 ![Three-stage FLOCK architecture](figures/flock_structure.svg)
 
 
-```mermaid
-flowchart TB
-    S["Stage 1 — Scouts<br/>Aggressive exploration to identify promising and unexplored regions<br/>Scout 1 · Scout 2"]
-    subgraph M["Stage 2 — Main body"]
-      direction LR
-      F["Followers<br/>Explore high-posterior regions discovered by scouts"]
-      P["Pioneers<br/>Explore areas missed or poorly covered by scouts"]
-    end
-    Q["Share discoveries and update exploration priorities between rounds"]
-    T["Stage 3 — Final sampler<br/>Construct a global proposal from all discoveries<br/>then sample with a valid MH correction"]
-    S --> F
-    S --> P
-    F --> Q
-    P --> Q
-    Q --> T
-    style S fill:#fff5e9,stroke:#e88025,color:#242424
-    style F fill:#effbf0,stroke:#25a457,color:#242424
-    style P fill:#eef5ff,stroke:#2878d5,color:#242424
-    style Q fill:#fafafa,stroke:#aaa,color:#242424
-    style T fill:#fafafa,stroke:#555,color:#242424
-```
 
 **The final stage was the central unresolved challenge.** Exploratory states are not automatically posterior draws. A properly constructed MH transition can correct a frozen proposal in principle, but the quality of the learned proposal and resulting estimation accuracy still have to be established. Importance-weighted consolidation was examined separately and is not equivalent to a corrected final MH chain.
 
@@ -44,6 +23,24 @@ flowchart TB
 | Importance pilot (previously reported 10 runs) | Roles 0.204 vs undirected 0.325 | **Unverified** prior report; importance sampling, not MH |
 
 **Warning:** different experiments use different targets and RMSE definitions; do not compare magnitudes across rows. Evidence grades and limitations are in [RESULTS_PROVENANCE.md](RESULTS_PROVENANCE.md).
+
+## Promising results in specific scenarios
+
+Although FLOCK did not consistently beat simpler samplers, **several controlled scenarios showed potentially useful gains**. These are exploratory observations, not evidence of general superiority.
+
+| Scenario | FLOCK configuration | Comparator | Observed result | Evidence |
+|---|---|---|---|---|
+| **Weak-signal funnel** | Orthogonal exploration | Adaptive Metropolis | Mean error **0.062** vs **0.246** (about 75% lower) | Archived method summary, **2 replicates only** |
+| **Product-ridge target** | Novelty exploration | Adaptive Metropolis | Mean error **0.161** vs **0.283** (about 43% lower) | Archived method summary, **2 replicates only** |
+| **Bimodal posterior, estimating a target functional** | FLOCK-Novelty | Custom AdaptiveMixtureMH | Mean absolute error **0.0113** vs **0.0500** (about 77% lower) | One archived benchmark configuration, **96,000 target evaluations per method** |
+| **Multimodal 5D target (Experiment 3)** | FLOCK-Unexplored | Custom AdaptiveMixtureMH | Mean RMSE **1.901** vs **2.059** (about 8% lower) | **100 replicates**; paired uncertainty interval crossed zero |
+| **Importance-sampling consolidation pilot** | FLOCK-Roles | Matched undirected proposal | Reported mean RMSE **0.204** vs **0.325** (about 37% lower) | **10 previously reported runs, not independently verified** |
+
+The funnel and product-ridge comparisons are especially fragile because **n=2**; they are useful leads, not reliable performance claims. The bimodal result comes from one target and does not establish replicated superiority. The importance-sampling pilot evaluates **self-normalized importance estimates**, not a converged MH sampler.
+
+**Interpretation:** FLOCK may help on selected geometries or specific estimands, but observed improvements did not reliably translate across different targets, metrics, and configurations. Larger independent replicated tests and fair target-evaluation budgets would be required to establish a repeatable advantage.
+
+The archived `data/method_summary.csv` and `data/method_posterior_summaries.csv` provide the underlying point summaries for the first three scenarios; see [RESULTS_PROVENANCE.md](RESULTS_PROVENANCE.md) for qualifications.
 
 ## Findings
 
